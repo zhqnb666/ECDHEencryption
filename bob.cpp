@@ -199,6 +199,19 @@ private:
     ll tmpPriKey; // Temporary private key
     Point tmpPubKey; // Temporary public key
     s_DES sdes; // The s-DES encryption system
+    void genTempKey() {
+        printf("gen\n");
+        fflush(stdout);
+        scanf("%lld", &tmpPriKey);
+        tmpPubKey = G * tmpPriKey;
+        printf("pub_e {$%lld}, {$%lld}\n", tmpPubKey.x.val, tmpPubKey.y.val);
+        fflush(stdout);
+    }
+    void requestTempKey(ECDHE &other) {
+        printf("req_e\n");
+        fflush(stdout);
+        scanf("%lld %lld", &other.tmpPubKey.x.val, &other.tmpPubKey.y.val);
+    }
 public:
     void setG(int x, int y) {
         G.x = x;
@@ -212,23 +225,10 @@ public:
         printf("pub_s {$%lld}, {$%lld}\n", pubKey.x.val, pubKey.y.val);
         fflush(stdout);
     }
-    void genTempKey() {
-        printf("gen\n");
-        fflush(stdout);
-        scanf("%lld", &tmpPriKey);
-        tmpPubKey = G * tmpPriKey;
-        printf("pub_e {$%lld}, {$%lld}\n", tmpPubKey.x.val, tmpPubKey.y.val);
-        fflush(stdout);
-    }
     void requestPermKey(ECDHE &other) {
         printf("req_s\n");
         fflush(stdout);
         scanf("%lld %lld", &other.pubKey.x.val, &other.pubKey.y.val);
-    }
-    void requestTempKey(ECDHE &other) {
-        printf("req_e\n");
-        fflush(stdout);
-        scanf("%lld %lld", &other.tmpPubKey.x.val, &other.tmpPubKey.y.val);
     }
     void receiveMsg(ECDHE &other, char *msg) {
         requestTempKey(other);
