@@ -269,6 +269,7 @@ void convert() {
 }
 
 int main() {
+    assert(0);
     scanf("%lld%lld%lld%lld%lld", &a, &b, &p, &x_g, &y_g);
     ECDHE Alice, Bob;
     Alice.setG(x_g, y_g);
